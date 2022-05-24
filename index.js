@@ -1,4 +1,5 @@
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
+import { oakCors } from "https://deno.land/x/cors/mod.ts";
 
 const data = await Deno.readTextFile("./data.json")
 const postcodes = await JSON.parse(data)
@@ -12,6 +13,8 @@ router
   });
 
 const app = new Application();
+
+app.use(oakCors({ origin: "*" }));
 app.use(router.routes());
 app.use(router.allowedMethods());
 
